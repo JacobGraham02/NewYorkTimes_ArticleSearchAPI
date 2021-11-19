@@ -1,9 +1,12 @@
 module com.jacobdgraham.comp1011assignment2 {
     requires javafx.controls;
     requires javafx.fxml;
+    requires com.google.gson;
+    requires java.net.http;
+    requires javafx.graphics;
 
 
-    opens com.jacobdgraham.comp1011assignment2 to javafx.fxml;
+    opens com.jacobdgraham.comp1011assignment2 to javafx.fxml, com.google.gson;
     exports com.jacobdgraham.comp1011assignment2;
     exports com.jacobdgraham.comp1011assignment2.Controller;
     opens com.jacobdgraham.comp1011assignment2.Controller to javafx.fxml;

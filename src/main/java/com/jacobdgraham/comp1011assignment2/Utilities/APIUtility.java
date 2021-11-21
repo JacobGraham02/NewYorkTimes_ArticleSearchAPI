@@ -4,23 +4,25 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import com.jacobdgraham.comp1011assignment2.Model.Credentials;
+import com.jacobdgraham.comp1011assignment2.Model.NewYorkTimesApiResponse;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class APIUtility {
+    private static String jsonFileLocation = "articles_from_nyt_api.json";
 
     public static String[] getCredentialsFromJsonInArray(String file_path) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Credentials result = null;
         String[] credentials = new String[2];
 
@@ -34,37 +36,39 @@ public class APIUtility {
         }
         return credentials;
     }
-    private static HttpURLConnection fetchAPIConnection() throws IOException {
-        URL url = new URL("https://api.nytimes.com/svc/search/v2/articlesearch.json?q=election&api-key=sLUaGVUJ77sKiYi5mOdTTnjc6W03nmpJ");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        connection.setRequestMethod("GET");
-        connection.connect();
+    public static HttpRequest fetchAPIConnection() {
+        String uri = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=election&api-key=sLUaGVUJ77sKiYi5mOdTTnjc6W03nmpJ";
 
-        int connectionResponseCode = connection.getResponseCode();
+        HttpRequest requestForJsonData = HttpRequest.newBuilder().uri(URI.create(uri)).build();
 
-        if (connectionResponseCode != 200) {
-            throw new RuntimeException("Http response code is not 200, indicating failure. It is instead: " + connectionResponseCode);
-        }
-        return connection;
+        return requestForJsonData;
     }
 
-    public static String fetchAPIResultsInString() throws IOException {
-        StringBuilder jsonToParse = new StringBuilder();
-
-        try (Scanner scanner = new Scanner(fetchAPIConnection().getURL().openStream())) {
-            while (scanner.hasNext()) {
-                jsonToParse.append(scanner.nextLine());
-            }
-        }
-        return jsonToParse.toString();
+    public static void fetchApiResultsInJsonFile(HttpRequest httpRequest) throws IOException, InterruptedException {
+        HttpResponse<Path> responseOfJsonData = HttpClient.newHttpClient().send
+                (httpRequest, HttpResponse.BodyHandlers.ofFile(Paths.get(jsonFileLocation)));
     }
+//
+//    public static void writeDataToJson(String data, String fileLocation) throws IOException {
+//        try (Writer writer = new FileWriter(fileLocation)) {
+//            Gson gson = new GsonBuilder().create();
+//            gson.toJson(data, writer);
+//        }
+    // To get image path for article image, enter the URL by appending http://www.nytimes.com/ to each of the URL's returned by the API.  https://www.nytimes.com/images/2021/09/29/world/29japan-ldp-election-winner1/29japan-ldp-election-winner1-blog480-v3.jpg
+    public static NewYorkTimesApiResponse getArticlesFromJson() throws IOException {
+        Gson gson = new Gson();
+        NewYorkTimesApiResponse newYorkTimesApiResponse = null;
 
-    public static void writeDataToArticlesJson(String data) throws IOException {
-        try (Writer writer = new FileWriter("articles_by_keyword.json")) {
-            Gson gson = new GsonBuilder().create();
-            gson.toJson(data, writer);
+        try (FileReader newYorkTimesApiFileReader = new FileReader(jsonFileLocation);
+        JsonReader newYorkTimesApiJsonReader = new JsonReader(newYorkTimesApiFileReader);) {
+
+            newYorkTimesApiResponse = gson.fromJson(newYorkTimesApiJsonReader, NewYorkTimesApiResponse.class);
+            newYorkTimesApiResponse.setDocs(newYorkTimesApiResponse.getResponse().getDocs());
+
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
         }
-
+        return newYorkTimesApiResponse;
     }
 }

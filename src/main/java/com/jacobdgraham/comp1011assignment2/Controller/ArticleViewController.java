@@ -1,46 +1,77 @@
 package com.jacobdgraham.comp1011assignment2.Controller;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-import com.jacobdgraham.comp1011assignment2.Model.Credentials;
+import com.jacobdgraham.comp1011assignment2.Model.Article;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.TreeSet;
 
-import static com.jacobdgraham.comp1011assignment2.Utilities.APIUtility.*;
+import static com.jacobdgraham.comp1011assignment2.Utilities.APIUtility.getArticlesFromJson;
+import static com.jacobdgraham.comp1011assignment2.Utilities.APIUtility.getCredentialsFromJsonInArray;
 
 public class ArticleViewController implements Initializable {
 
-    String[] stringArrayArticleSearchCredentials = new String[2];
-    @FXML
-    private Label welcomeText;
+    private String[] stringArrayArticleSearchCredentials;
+    private TreeSet<Article> treeMapNewYorkTimesArticles;
 
     @FXML
-    protected void onHelloButtonClick() throws IOException, InterruptedException {
-//        fetchApiResultsInJsonFile(fetchAPIConnection());
-//        welcomeText.setText("Welcome to JavaFX Application!");
+    private Label lblHeading;
+
+    @FXML
+    private Label lblSubHeading;
+
+    @FXML
+    private TextField txtKeywords;
+
+    @FXML
+    private Button btnSearchForArticles;
+
+    @FXML
+    private TableView<Article> tblViewArticleTitles;
+
+    @FXML
+    private TableColumn<Article, String> tblViewColumnArticleTitle;
+
+    @FXML
+    private TableColumn<Article, String> tblViewColumnArticleSource;
+
+    @FXML
+    void searchForArticles(ActionEvent event) {
+
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        stringArrayArticleSearchCredentials = new String[2];
+        treeMapNewYorkTimesArticles = new TreeSet<>();
         stringArrayArticleSearchCredentials = getCredentialsFromJsonInArray("apiKey_secretKey.json");
+
+        try {
+            treeMapNewYorkTimesArticles.addAll(Arrays.asList(getArticlesFromJson().getDocs()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        tblViewColumnArticleTitle.setCellValueFactory(new PropertyValueFactory<>("articleTitle"));
+//        tblViewColumnArticleSource.setCellValueFactory(new PropertyValueFactory<>("articleSource"));
+
+        for (Article article : treeMapNewYorkTimesArticles) {
+            tblViewArticleTitles.getItems().add(article);
+        }
+
+        treeMapNewYorkTimesArticles.stream().forEach(System.out::println);
+
 
 
         try {
-            System.out.println(Arrays.toString(getArticlesFromJson().getDocs()));
+            System.out.println(getArticlesFromJson().getDocs()[0].getArticleTitle()); // Object of type Article
         } catch (IOException e) {
             e.printStackTrace();
         }

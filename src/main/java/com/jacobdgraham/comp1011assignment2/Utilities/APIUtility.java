@@ -25,7 +25,7 @@ public class APIUtility {
 
     public static String[] getCredentialsFromJsonInArray(String file_path) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        Credentials result = null;
+        Credentials result;
         String[] credentials = new String[2];
 
         try (FileReader jsonFileReader = new FileReader(file_path);

@@ -22,25 +22,25 @@ import java.util.ResourceBundle;
 
 import static com.jacobdgraham.comp1011assignment2.Utilities.APIUtility.*;
 
-public class HelloController implements Initializable {
+public class ArticleViewController implements Initializable {
 
-    String temp[] = new String[2];
+    String[] stringArrayArticleSearchCredentials = new String[2];
     @FXML
     private Label welcomeText;
 
     @FXML
     protected void onHelloButtonClick() throws IOException, InterruptedException {
-        fetchApiResultsInJsonFile(fetchAPIConnection());
-        welcomeText.setText("Welcome to JavaFX Application!");
+//        fetchApiResultsInJsonFile(fetchAPIConnection());
+//        welcomeText.setText("Welcome to JavaFX Application!");
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        temp = getCredentialsFromJsonInArray("apiKey_secretKey.json");
+        stringArrayArticleSearchCredentials = getCredentialsFromJsonInArray("apiKey_secretKey.json");
 
 
         try {
-            System.out.println(getArticlesFromJson().getDocs()[0]);
+            System.out.println(Arrays.toString(getArticlesFromJson().getDocs()));
         } catch (IOException e) {
             e.printStackTrace();
         }

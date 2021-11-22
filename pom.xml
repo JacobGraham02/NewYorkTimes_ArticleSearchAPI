@@ -71,7 +71,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.jacobdgraham.comp1011assignment2/com.jacobdgraham.comp1011assignment2.HelloApplication
+                                com.jacobdgraham.comp1011assignment2/com.jacobdgraham.comp1011assignment2.ApplicationLauncher
                             </mainClass>
                         </configuration>
                     </execution>

@@ -19,6 +19,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class APIUtility {
+    private static String api_key = "sLUaGVUJ77sKiYi5mOdTTnjc6W03nmpJ";
+    private static String api_secret = "Oup2fCslkil7Vbj1";
     private static String jsonFileLocation = "articles_from_nyt_api.json";
 
     public static String[] getCredentialsFromJsonInArray(String file_path) {
@@ -38,7 +40,7 @@ public class APIUtility {
     }
 
     public static HttpRequest fetchAPIConnection() {
-        String uri = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=election&api-key=sLUaGVUJ77sKiYi5mOdTTnjc6W03nmpJ";
+        String uri = String.format("https://api.nytimes.com/svc/search/v2/articlesearch.json?q=election&api-key=%s", api_key);
 
         HttpRequest requestForJsonData = HttpRequest.newBuilder().uri(URI.create(uri)).build();
 

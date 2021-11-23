@@ -42,19 +42,31 @@
                         </Label>
                      </children>
                   </HBox>
-                  <TextField fx:id="txtKeywords" maxWidth="250.0" prefHeight="25.0" prefWidth="200.0" promptText="Enter keywords here" styleClass="txtEnterKeywords">
+                  <HBox alignment="CENTER" prefHeight="49.0" prefWidth="520.0" spacing="20.0">
+                     <children>
+                        <TextField fx:id="txtKeywords" maxWidth="250.0" prefHeight="25.0" prefWidth="200.0" promptText="Enter a keyword here (only 1)" styleClass="txtEnterKeywords">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </TextField>
+                        <Button fx:id="btnSearchForArticles" mnemonicParsing="false" onAction="#searchForArticles" styleClass="btnSearchForArticles" text="Search for articles ">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label fx:id="lblDoubleClickArticle" text="Double click on any of the article names to view more details" textFill="WHITE">
                      <FlowPane.margin>
-                        <Insets bottom="20.0" />
+                        <Insets />
                      </FlowPane.margin>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
-                  </TextField>
-                  <Button fx:id="btnSearchForArticles" mnemonicParsing="false" onAction="#searchForArticles" styleClass="btnSearchForArticles" text="Search for articles ">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
+                  </Label>
                </children>
                <BorderPane.margin>
                   <Insets />
@@ -62,9 +74,9 @@
             </FlowPane>
          </top>
          <center>
-            <TableView fx:id="tblViewArticleTitles" fixedCellSize="-2.0" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="tblViewArticleTitles" fixedCellSize="-2.0" maxHeight="600.0" prefHeight="385.0" prefWidth="900.0" styleClass="tableViewArticles" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn fx:id="tblViewColumnArticleTitle" editable="false" minWidth="50.0" prefWidth="900.0" resizable="false" text="Article name" />
+                <TableColumn fx:id="tblViewColumnArticleTitle" editable="false" minWidth="50.0" prefWidth="900.0" resizable="false" styleClass="columnArticleName" text="Article name" />
               </columns>
             </TableView>
          </center>

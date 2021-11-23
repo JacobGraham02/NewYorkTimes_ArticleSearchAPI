@@ -22,13 +22,18 @@ public class APIUtility {
     private static String api_key = "sLUaGVUJ77sKiYi5mOdTTnjc6W03nmpJ";
     private static String api_secret = "Oup2fCslkil7Vbj1";
     private static String jsonFileLocation = "articles_from_nyt_api.json";
+    private static String jsonCredentialsFileLocation = "apiKey_secretKey.json";
 
-    public static String[] getCredentialsFromJsonInArray(String file_path) {
+    /**
+     *
+     * @return An array of size 2; location 0 containing api key, and location 1 containing api secret
+     */
+    public static String[] getCredentialsFromJsonInArray() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Credentials result;
         String[] credentials = new String[2];
 
-        try (FileReader jsonFileReader = new FileReader(file_path);
+        try (FileReader jsonFileReader = new FileReader(jsonCredentialsFileLocation);
              JsonReader jsonReader = new JsonReader(jsonFileReader)) {
             result = gson.fromJson(jsonReader, Credentials.class);
             credentials = new String[]{result.getApi_key(), result.getApi_secret()};
@@ -39,14 +44,44 @@ public class APIUtility {
         return credentials;
     }
 
-    public static HttpRequest fetchAPIConnection() {
-        String uri = String.format("https://api.nytimes.com/svc/search/v2/articlesearch.json?q=election&api-key=%s", api_key);
+    /**
+     *
+     * @param jsonFileLocation the json file to delete all contents from.
+     * @throws IOException if a connection to file cannot be created, file cannot be found, or file cannot be written to.
+     */
+    private static void deleteJsonFileContents(String jsonFileLocation) throws IOException {
+        Path filePath = Paths.get(jsonFileLocation);
+        File file = new File(String.valueOf(filePath));
+        try (BufferedOutputStream bufferedOutputStream =
+                new BufferedOutputStream(new FileOutputStream(String.valueOf(file)))) {
+
+            bufferedOutputStream.write("{}".getBytes());
+            bufferedOutputStream.flush();
+        }
+    }
+
+    /**
+     *
+     * @param keyword specific word used to query the API
+     * @return an HttpRequest constructed and sent to the New York Times API.
+     * @throws IOException
+     */
+    public static HttpRequest fetchAPIConnectionWithSpecificKeyword(String keyword) throws IOException {
+        deleteJsonFileContents(jsonFileLocation);
+        String uri = String.format("https://api.nytimes.com/svc/search/v2/articlesearch.json?q=%s&api-key=%s", keyword, api_key);
+        uri = uri.replace(" ", "%20");
 
         HttpRequest requestForJsonData = HttpRequest.newBuilder().uri(URI.create(uri)).build();
 
         return requestForJsonData;
     }
 
+    /**
+     *
+     * @param httpRequest the HttpRequest object used to fetch data from and load into a JSON file.
+     * @throws IOException if an input or output error occurs with the HttpRequest object.
+     * @throws InterruptedException if a connection with the HttpRequest object is severed unexpectedly.
+     */
     public static void fetchApiResultsInJsonFile(HttpRequest httpRequest) throws IOException, InterruptedException {
         HttpResponse<Path> responseOfJsonData = HttpClient.newHttpClient().send
                 (httpRequest, HttpResponse.BodyHandlers.ofFile(Paths.get(jsonFileLocation)));
@@ -57,8 +92,12 @@ public class APIUtility {
 //            Gson gson = new GsonBuilder().create();
 //            gson.toJson(data, writer);
 //        }
-    // To get image path for article image, enter the URL by appending http://www.nytimes.com/ to each of the URL's returned by the API.  https://www.nytimes.com/images/2021/09/29/world/29japan-ldp-election-winner1/29japan-ldp-election-winner1-blog480-v3.jpg
-    public static NewYorkTimesApiResponse getArticlesFromJson() throws IOException {
+
+    /**
+     *
+     * @return the actual API response object which will be displayed on the GUI.
+     */
+    public static NewYorkTimesApiResponse getArticlesFromJson() {
         Gson gson = new Gson();
         NewYorkTimesApiResponse newYorkTimesApiResponse = null;
 

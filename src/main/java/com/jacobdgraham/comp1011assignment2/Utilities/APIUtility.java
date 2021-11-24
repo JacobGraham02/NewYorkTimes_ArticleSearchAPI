@@ -7,16 +7,12 @@ import com.jacobdgraham.comp1011assignment2.Model.Credentials;
 import com.jacobdgraham.comp1011assignment2.Model.NewYorkTimesApiResponse;
 
 import java.io.*;
-import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Scanner;
 
 public class APIUtility {
     private static String api_key = "sLUaGVUJ77sKiYi5mOdTTnjc6W03nmpJ";

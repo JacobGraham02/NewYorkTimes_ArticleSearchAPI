@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="900.0" styleClass="applicationBackground" stylesheets="@../Styles/ArticleView.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jacobdgraham.comp1011assignment2.Controller.ArticleViewController">
+<AnchorPane prefHeight="800.0" prefWidth="1100.0" styleClass="applicationBackground" stylesheets="@../Styles/ArticleView.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jacobdgraham.comp1011assignment2.Controller.ArticleViewController">
    <children>
-      <BorderPane layoutY="131.0" prefHeight="600.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutY="131.0" maxWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="200.0" prefWidth="770.0" BorderPane.alignment="CENTER">
                <children>
@@ -56,7 +56,7 @@
                         </Button>
                      </children>
                   </HBox>
-                  <Label fx:id="lblDoubleClickArticle" text="Double click on any of the article names to view more details" textFill="WHITE">
+                  <Label fx:id="lblDoubleClickArticle" text="Highlight any of the article names and press the Enter key to fetch the article" textFill="WHITE">
                      <FlowPane.margin>
                         <Insets />
                      </FlowPane.margin>
@@ -67,6 +67,12 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
+                  <Label text="Press tab until there is a blue outline around a table row. Next, use the up and down arrows to traverse to one, then press the Enter key" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnClickedTableRow" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#btnTableRowClicked" text="Auto clicks" />
                </children>
                <BorderPane.margin>
                   <Insets />
@@ -76,7 +82,7 @@
          <center>
             <TableView fx:id="tblViewArticleTitles" fixedCellSize="-2.0" maxHeight="600.0" prefHeight="385.0" prefWidth="900.0" styleClass="tableViewArticles" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn fx:id="tblViewColumnArticleTitle" editable="false" minWidth="50.0" prefWidth="900.0" resizable="false" styleClass="columnArticleName" text="Article name" />
+                <TableColumn fx:id="tblViewColumnArticleTitle" editable="false" minWidth="50.0" prefWidth="1100.0" resizable="false" styleClass="columnArticleName" text="Article name" />
               </columns>
             </TableView>
          </center>

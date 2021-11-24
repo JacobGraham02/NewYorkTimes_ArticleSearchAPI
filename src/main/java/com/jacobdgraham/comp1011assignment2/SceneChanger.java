@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class SceneChanger {
 
-    public static void changeScenes(ActionEvent actionEvent, String newViewName, String newSceneTitle) throws IOException {
+    public static void changeScene(ActionEvent actionEvent, String newViewName, String newSceneTitle) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(new Object() {
             // The same process is applied here as in the initial application start 'HelloApplication'. A new object containing the FXML file is created and

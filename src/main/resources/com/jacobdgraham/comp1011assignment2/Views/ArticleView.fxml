@@ -20,18 +20,18 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="48.0" prefWidth="520.0">
                      <children>
-                        <Label fx:id="lblHeading" alignment="CENTER" prefHeight="40.0" prefWidth="429.0" styleClass="headingLabel" text="New York Times article search" textFill="WHITE">
+                        <Label fx:id="lblHeading" alignment="CENTER" prefHeight="53.0" prefWidth="608.0" styleClass="headingLabel" text="New York Times article search" textFill="WHITE">
                            <font>
-                              <Font name="System Bold" size="28.0" />
+                              <Font name="System Bold" size="36.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="44.0" prefWidth="520.0">
                      <children>
-                        <Label fx:id="lblSubHeading" alignment="CENTER" prefHeight="35.0" prefWidth="403.0" styleClass="headingLabel" text="Search for recently published articles by keyword" textFill="WHITE">
+                        <Label fx:id="lblSubHeading" alignment="CENTER" prefHeight="40.0" prefWidth="500.0" styleClass="headingLabel" text="Search for recently published articles by keyword" textFill="WHITE">
                            <font>
-                              <Font name="System Bold" size="16.0" />
+                              <Font name="System Bold" size="20.0" />
                            </font>
                            <HBox.margin>
                               <Insets />
@@ -44,7 +44,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="49.0" prefWidth="520.0" spacing="20.0">
                      <children>
-                        <TextField fx:id="txtKeywords" maxWidth="250.0" prefHeight="25.0" prefWidth="200.0" promptText="Enter a keyword here (only 1)" styleClass="txtEnterKeywords">
+                        <TextField fx:id="txtKeywords" maxWidth="250.0" prefHeight="25.0" prefWidth="200.0" promptText="Enter a keyword(s) here" styleClass="txtEnterKeywords">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -56,7 +56,7 @@
                         </Button>
                      </children>
                   </HBox>
-                  <Label fx:id="lblDoubleClickArticle" text="Highlight any of the article names and press the Enter key to fetch the article" textFill="WHITE">
+                  <Label fx:id="lblDoubleClickArticle" text="Click on any of the article names and press the Enter key to view article details on separate page" textFill="WHITE">
                      <FlowPane.margin>
                         <Insets />
                      </FlowPane.margin>
@@ -72,7 +72,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btnClickedTableRow" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#btnTableRowClicked" text="Auto clicks" />
+                  <Button fx:id="btnClickedTableRow" alignment="TOP_RIGHT" disable="true" mnemonicParsing="false" onAction="#btnTableRowClicked" opacity="0.0" text="Auto clicks" />
                </children>
                <BorderPane.margin>
                   <Insets />

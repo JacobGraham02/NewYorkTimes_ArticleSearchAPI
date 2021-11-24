@@ -18,15 +18,18 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.TreeSet;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static com.jacobdgraham.comp1011assignment2.SceneChanger.changeScene;
 import static com.jacobdgraham.comp1011assignment2.Utilities.APIUtility.*;
 
 public class ArticleViewController implements Initializable {
-    private static Article currentlySelectedArticle;
+    private Article currentlySelectedArticle;
 
     private TreeSet<Article> treeSetNewYorkTimesArticles;
-    private int tableViewMaxElementCount;
+
+    private ExecutorService executorService;
 
     @FXML
     private Label lblHeading;
@@ -49,10 +52,11 @@ public class ArticleViewController implements Initializable {
     @FXML
     private TableColumn<Article, String> tblViewColumnArticleTitle;
 
+
     @FXML
     void btnTableRowClicked(ActionEvent event) throws IOException {
-        changeScene(event, "Views/DetailedArticleView.fxml", "Test.fxml");
-        System.out.println("button was clicked");
+        changeScene(event, "Views/DetailedArticleView.fxml", "Test.fxml", currentlySelectedArticle);
+        executorService.shutdown();
     }
 
     private boolean validateTextFieldData() {
@@ -70,32 +74,32 @@ public class ArticleViewController implements Initializable {
     void searchForArticles(ActionEvent event) throws IOException, InterruptedException {
         if (!validateTextFieldData()) {
             // generateMessage("Input error", "Please enter some text between 1 and 50 characters long", Alert.AlertType.ERROR);
-            runThreadForMessage("Input error", "Please enter some text between 1 and 50 characters long", Alert.AlertType.ERROR);
+            generateMessage("Input error", "Please enter some text between 1 and 50 characters long", Alert.AlertType.ERROR).showAndWait();
             return;
         }
+
         tblViewArticleTitles.getItems().clear();
         treeSetNewYorkTimesArticles.clear();
 
-        fetchApiResultsInJsonFile(fetchAPIConnectionWithSpecificKeyword(txtKeywords.getText().trim()));
+        Runnable runnable = () -> {
+            try {
+                fetchApiResultsInJsonFile(fetchAPIConnectionWithSpecificKeyword(txtKeywords.getText().trim()));
+                treeSetNewYorkTimesArticles.addAll(Arrays.asList(getArticlesFromJson().getDocs()));
+                tblViewArticleTitles.getItems().addAll(treeSetNewYorkTimesArticles);
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        };
 
-        treeSetNewYorkTimesArticles.addAll(Arrays.asList(getArticlesFromJson().getDocs()));
+        executorService.submit(runnable);
+
         txtKeywords.clear();
-
-        runThreadForMessage("Number of messages fetched", "You have fetched " + treeSetNewYorkTimesArticles.size() +
-                " articles from the New York Times website", Alert.AlertType.INFORMATION);
-
-        tblViewArticleTitles.getItems().addAll(treeSetNewYorkTimesArticles);
-        tableViewMaxElementCount = tblViewArticleTitles.getItems().size();
-    }
-
-    private void runThreadForMessage(String headerText, String contentText, Alert.AlertType alertType) {
-        new Thread(() -> Platform.runLater(() -> {
-            generateMessage(headerText, contentText, alertType).showAndWait();
-        })).start();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        executorService = Executors.newFixedThreadPool(2);
+
         String[] stringArrayArticleSearchCredentials = new String[2];
         treeSetNewYorkTimesArticles = new TreeSet<>();
         stringArrayArticleSearchCredentials = getCredentialsFromJsonInArray();
@@ -104,13 +108,13 @@ public class ArticleViewController implements Initializable {
 
         tblViewArticleTitles.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
 
-            System.out.println(treeSetNewYorkTimesArticles.toArray()[tblViewArticleTitles.getSelectionModel().getFocusedIndex()]);
             tblViewArticleTitles.setOnKeyPressed(event -> {
                 if (event.getCode().equals(KeyCode.ENTER)) {
-                    Article articleData = tblViewArticleTitles.getSelectionModel().getSelectedItem();
+                    currentlySelectedArticle = tblViewArticleTitles.getSelectionModel().getSelectedItem();
                     btnClickedTableRow.fireEvent(new ActionEvent());
                 }
             });
         });
     }
 }
+

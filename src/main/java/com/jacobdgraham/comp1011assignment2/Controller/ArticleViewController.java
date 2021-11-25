@@ -29,8 +29,6 @@ public class ArticleViewController implements Initializable {
 
     private TreeSet<Article> treeSetNewYorkTimesArticles;
 
-    private ExecutorService executorService;
-
     @FXML
     private Label lblHeading;
 
@@ -52,18 +50,19 @@ public class ArticleViewController implements Initializable {
     @FXML
     private TableColumn<Article, String> tblViewColumnArticleTitle;
 
+    private String txtfieldData;
+
 
     @FXML
     void btnTableRowClicked(ActionEvent event) throws IOException {
         changeScene(event, "Views/DetailedArticleView.fxml", "Test.fxml", currentlySelectedArticle);
-        executorService.shutdown();
     }
 
     private boolean validateTextFieldData() {
-        return txtKeywords.getText().trim().replaceAll(" ", "%20").matches("[a-zA-Z]{2,50}");
+        return txtKeywords.getText().trim().replaceAll(" ", "%20").matches("[a-zA-Z\\s{0,}]{2,50}");
     }
 
-    private Alert generateMessage(String headerText, String contentText, Alert.AlertType alertType) {
+    private Alert generateMessage(final String headerText, final String contentText, final Alert.AlertType alertType) {
         Alert errorAlert = new Alert(alertType);
         errorAlert.setHeaderText(headerText);
         errorAlert.setContentText(contentText);
@@ -71,35 +70,31 @@ public class ArticleViewController implements Initializable {
     }
 
     @FXML
-    void searchForArticles(ActionEvent event) throws IOException, InterruptedException {
+    void searchForArticles(ActionEvent event) {
         if (!validateTextFieldData()) {
-            // generateMessage("Input error", "Please enter some text between 1 and 50 characters long", Alert.AlertType.ERROR);
-            generateMessage("Input error", "Please enter some text between 1 and 50 characters long", Alert.AlertType.ERROR).showAndWait();
+            generateMessage("Input error", "Please enter some text between 2 and 50 characters long", Alert.AlertType.ERROR).showAndWait();
             return;
         }
 
         tblViewArticleTitles.getItems().clear();
         treeSetNewYorkTimesArticles.clear();
 
-        Runnable runnable = () -> {
+        txtfieldData = txtKeywords.getText().trim();
+
+        new Thread(() -> {
             try {
-                fetchApiResultsInJsonFile(fetchAPIConnectionWithSpecificKeyword(txtKeywords.getText().trim()));
+                fetchApiResultsInJsonFile(fetchAPIConnectionWithSpecificKeyword(txtfieldData));
                 treeSetNewYorkTimesArticles.addAll(Arrays.asList(getArticlesFromJson().getDocs()));
                 tblViewArticleTitles.getItems().addAll(treeSetNewYorkTimesArticles);
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
-        };
-
-        executorService.submit(runnable);
-
+        }).start();
         txtKeywords.clear();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        executorService = Executors.newFixedThreadPool(2);
-
         String[] stringArrayArticleSearchCredentials = new String[2];
         treeSetNewYorkTimesArticles = new TreeSet<>();
         stringArrayArticleSearchCredentials = getCredentialsFromJsonInArray();
@@ -110,7 +105,9 @@ public class ArticleViewController implements Initializable {
 
             tblViewArticleTitles.setOnKeyPressed(event -> {
                 if (event.getCode().equals(KeyCode.ENTER)) {
+
                     currentlySelectedArticle = tblViewArticleTitles.getSelectionModel().getSelectedItem();
+
                     btnClickedTableRow.fireEvent(new ActionEvent());
                 }
             });

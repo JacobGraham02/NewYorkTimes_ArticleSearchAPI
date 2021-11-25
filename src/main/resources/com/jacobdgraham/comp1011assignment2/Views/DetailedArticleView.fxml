@@ -2,17 +2,15 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane prefHeight="800.0" prefWidth="1100.0" stylesheets="@../Styles/ArticleView.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jacobdgraham.comp1011assignment2.Controller.DetailedArticleViewController">
    <children>
@@ -46,127 +44,86 @@
                </children>
             </FlowPane>
          </top>
-         <center>
-            <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+         <right>
+            <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" maxWidth="400.0" orientation="VERTICAL" prefHeight="561.0" rowValignment="TOP" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                  <Label contentDisplay="CENTER" text="Title of article" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="395.0">
                      <children>
-                        <Label fx:id="lblArticleTitle" alignment="CENTER" text="Article title:" textFill="WHITE">
+                        <Label fx:id="lblArticleTitle" contentDisplay="CENTER" prefHeight="200.0" prefWidth="552.0" styleClass="lblArticleInformation" text="Label" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="16.0" />
                            </font>
                            <padding>
-                              <Insets right="20.0" />
+                              <Insets left="20.0" />
                            </padding>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                  <Label contentDisplay="CENTER" text="Link to article online" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="lblLinkToArticle" text="Link to article:" textFill="WHITE">
+                        <Hyperlink fx:id="linkArticleOnline" prefHeight="153.0" prefWidth="526.0" text="Hyperlink">
                            <font>
                               <Font size="16.0" />
                            </font>
-                           <padding>
-                              <Insets right="20.0" />
-                           </padding>
-                        </Label>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Hyperlink>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                  <Label contentDisplay="CENTER" text="Heading of article" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="lblArticleHeading" text="Article heading:" textFill="WHITE">
+                        <Label fx:id="lblArticleHeadingSnippet" prefHeight="201.0" prefWidth="685.0" styleClass="lblArticleInformation" text="Label" textFill="WHITE" wrapText="true">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
                            <font>
                               <Font size="16.0" />
                            </font>
-                           <padding>
-                              <Insets right="20.0" />
-                           </padding>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                  <Label contentDisplay="CENTER" text="Lead paragraph of article" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="lblArticleLeadingParagraph" text="Article leading paragraph:" textFill="WHITE">
+                        <Label fx:id="lblArticleLeadParagraph" prefHeight="171.0" prefWidth="564.0" styleClass="lblArticleInformation" text="Label" textFill="WHITE" wrapText="true">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
                            <font>
                               <Font size="16.0" />
                            </font>
-                           <padding>
-                              <Insets right="20.0" />
-                           </padding>
                         </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
-                     <children>
-                        <Label fx:id="lblSourceOfArticle" text="Source of article:" textFill="WHITE">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                           <padding>
-                              <Insets right="20.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
-                     <children>
-                        <TextArea fx:id="txtAreaArticleTitle" editable="false" prefHeight="113.0" prefWidth="586.0" wrapText="true">
-                           <HBox.margin>
-                              <Insets bottom="2.0" right="4.0" />
-                           </HBox.margin>
-                        </TextArea>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <children>
-                        <TextArea fx:id="txtAreaLinkToArticle" editable="false" prefHeight="112.0" prefWidth="622.0" wrapText="true">
-                           <HBox.margin>
-                              <Insets bottom="2.0" right="4.0" />
-                           </HBox.margin>
-                        </TextArea>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <children>
-                        <TextArea fx:id="txtAreaArticleHeading" editable="false" prefHeight="120.0" prefWidth="646.0" wrapText="true">
-                           <HBox.margin>
-                              <Insets bottom="2.0" right="4.0" />
-                           </HBox.margin>
-                        </TextArea>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <children>
-                        <TextArea fx:id="txtAreaArticleLeadingParagraph" editable="false" prefHeight="120.0" prefWidth="675.0" wrapText="true">
-                           <HBox.margin>
-                              <Insets bottom="2.0" right="4.0" />
-                           </HBox.margin>
-                        </TextArea>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                     <children>
-                        <TextArea fx:id="txtAreaArticleSource" editable="false" prefHeight="112.0" prefWidth="578.0" wrapText="true">
-                           <HBox.margin>
-                              <Insets bottom="2.0" right="4.0" />
-                           </HBox.margin>
-                        </TextArea>
                      </children>
                   </HBox>
                </children>
-            </GridPane>
+            </FlowPane>
+         </right>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="imgViewArticlePicture" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </VBox>
          </center>
       </BorderPane>
    </children>

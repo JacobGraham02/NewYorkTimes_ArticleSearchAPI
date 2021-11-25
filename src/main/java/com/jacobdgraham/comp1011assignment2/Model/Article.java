@@ -1,6 +1,7 @@
 package com.jacobdgraham.comp1011assignment2.Model;
 
 import com.google.gson.annotations.SerializedName;
+import javafx.scene.image.Image;
 
 import java.util.Comparator;
 
@@ -20,6 +21,28 @@ public class Article implements Comparable<Article> {
 
     @SerializedName("source")
     private String articleSource;
+
+    @SerializedName("multimedia")
+    private ArticleImage[] multimedia;
+
+    /*@SerializedName("web_url")
+    private String articleImage;
+
+    public String getArticleImage() {
+        return articleImage;
+    }
+
+    public void setArticleImage(String articleImageUrl) {
+        this.articleImage = articleImageUrl;
+    }*/
+
+    public ArticleImage[] getMultimedia() {
+        return multimedia;
+    }
+
+    public void setMultimedia(ArticleImage[] multimedia) {
+        this.multimedia = multimedia;
+    }
 
     public String getArticleTitle() {
         return articleTitle;
@@ -62,7 +85,7 @@ public class Article implements Comparable<Article> {
     }
 
     public String toString() {
-        return String.format("Article title: %s, \n Url: %s \n Lead paragraph: %s\n", articleTitle, articleUrl, articleLeadParagraph);
+        return String.format("Article title: %s, \n Url: %s \n Lead paragraph: %s\n %s \n", articleTitle, articleUrl, articleLeadParagraph, multimedia[0]);
     }
 
     @Override

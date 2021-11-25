@@ -1,24 +1,36 @@
 package com.jacobdgraham.comp1011assignment2.Controller;
 
 import com.jacobdgraham.comp1011assignment2.Model.Article;
+import com.jacobdgraham.comp1011assignment2.Model.ArticleImage;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collection;
-import java.util.List;
+import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import static com.jacobdgraham.comp1011assignment2.SceneChanger.changeScene;
+import static com.jacobdgraham.comp1011assignment2.Utilities.APIUtility.*;
 
 public class DetailedArticleViewController implements Initializable {
+
+    @FXML
+    private ImageView imgViewArticlePicture;
 
     @FXML
     private Button btnBackToArticleSearch;
@@ -27,66 +39,54 @@ public class DetailedArticleViewController implements Initializable {
     private Label lblArticleTitle;
 
     @FXML
-    private Label lblLinkToArticle;
+    private Hyperlink linkArticleOnline;
 
     @FXML
-    private Label lblArticleHeading;
+    private Label lblArticleHeadingSnippet;
 
     @FXML
-    private Label lblArticleLeadingParagraph;
+    private Label lblArticleLeadParagraph;
 
     @FXML
-    private Label lblSourceOfArticle;
+    private Label lblArticleSource;
+
+    final String newYorkTimesImagePrepend = "https://www.nytimes.com/";
 
     @FXML
-    private TextArea txtAreaArticleTitle;
-
-    @FXML
-    private TextArea txtAreaLinkToArticle;
-
-    @FXML
-    private TextArea txtAreaArticleHeading;
-
-    @FXML
-    private TextArea txtAreaArticleLeadingParagraph;
-
-    @FXML
-    private TextArea txtAreaArticleSource;
-
-    @FXML
-    void backToArticleSearch(ActionEvent event) throws IOException {
+    void backToArticleSearch(final ActionEvent event) throws IOException {
         changeScene(event, "Views/ArticleView.fxml", "Hello!");
-        executorService.shutdown();
     }
 
     private Article articleFromPreviousPage;
 
-    private ExecutorService executorService;
-
-    public void initializeArticleData(Article nytArticle) {
+    final public void initializeArticleData(final Article nytArticle) {
         articleFromPreviousPage = nytArticle;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        executorService = Executors.newFixedThreadPool(1);
 
-        Runnable runnableForArticleObject = () -> {
-            try {
-                TimeUnit.MILLISECONDS.sleep(200);
-                populateStuff(articleFromPreviousPage);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        };
-        executorService.submit(runnableForArticleObject);
+        final KeyFrame kf1 = new KeyFrame(Duration.millis(240), e -> populateImageView());
+        final KeyFrame kf2 = new KeyFrame(Duration.millis(250), e ->
+        {
+            lblArticleTitle.setText(articleFromPreviousPage.getArticleTitle());
+            lblArticleHeadingSnippet.setText(articleFromPreviousPage.getArticleTitleSnippet());
+            lblArticleLeadParagraph.setText(articleFromPreviousPage.getArticleLeadParagraph());
+            linkArticleOnline.setText(articleFromPreviousPage.getUrl());
+        });
+
+        final Timeline timeline = new Timeline(kf1, kf2);
+        Platform.runLater(timeline::play);
     }
+    private void populateImageView() {
+        final ArticleImage imageLocation = articleFromPreviousPage.getMultimedia()[0];
+        final String articleImageUrl = newYorkTimesImagePrepend+imageLocation.getArticleImageUrl();
 
-    private void populateStuff(Article art) {
-        txtAreaArticleTitle.setText(art.getArticleTitle());
-        txtAreaArticleHeading.setText(art.getArticleTitleSnippet());
-        txtAreaArticleLeadingParagraph.setText(art.getArticleLeadParagraph());
-        txtAreaLinkToArticle.setText(art.getUrl());
-        txtAreaArticleSource.setText(art.getArticleSource());
+        double imageWidth = articleFromPreviousPage.getMultimedia()[0].getWidth();
+        double imageHeight = articleFromPreviousPage.getMultimedia()[0].getHeight();
+
+        imgViewArticlePicture.setFitWidth(imageWidth);
+        imgViewArticlePicture.setFitHeight(imageHeight);
+        imgViewArticlePicture.setImage(new Image(articleImageUrl));
     }
 }

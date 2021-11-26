@@ -44,7 +44,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="49.0" prefWidth="520.0" spacing="20.0">
                      <children>
-                        <TextField fx:id="txtKeywords" maxWidth="250.0" prefHeight="25.0" prefWidth="200.0" promptText="Enter a keyword(s) here" styleClass="txtEnterKeywords">
+                        <TextField fx:id="txtKeywords" maxWidth="250.0" prefHeight="25.0" prefWidth="200.0" promptText="Enter a keyword here" styleClass="txtEnterKeywords">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>

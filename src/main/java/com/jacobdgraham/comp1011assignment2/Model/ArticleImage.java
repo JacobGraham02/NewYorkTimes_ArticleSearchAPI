@@ -13,12 +13,22 @@ public class ArticleImage {
     @SerializedName("width")
     private int width;
 
+    public ArticleImage(String url, int width, int height) {
+        setArticleImageUrl(url);
+        setWidth(width);
+        setHeight(height);
+    }
+
     public int getHeight() {
         return height;
     }
 
     public void setHeight(int height) {
-        this.height = height;
+        if (height > 0) {
+            this.height = height;
+        } else {
+            throw new IllegalArgumentException("Height of image must be greater than 0");
+        }
     }
 
     public int getWidth() {
@@ -26,7 +36,11 @@ public class ArticleImage {
     }
 
     public void setWidth(int width) {
-        this.width = width;
+        if (width > 0) {
+            this.width = width;
+        } else {
+            throw new IllegalArgumentException("Width of image must be greater than 0");
+        }
     }
 
     public String getArticleImageUrl() {
@@ -34,7 +48,11 @@ public class ArticleImage {
     }
 
     public void setArticleImageUrl(String articleImageUrl) {
+        if (articleImageUrl.trim().replace(" ", "%20").matches("[a-zA-Z0-9!@#$%^&*() ]{2,50}"))
         this.articleImageUrl = articleImageUrl;
+        else
+            throw new IllegalArgumentException("The article image url must be between 2 and 50 characters, \" +\n" +
+                    "                    \"and contain only letters, numbers, spaces, and these characters: ! @ # $ % ^ & * ( )");
     }
 
     public String toString() {

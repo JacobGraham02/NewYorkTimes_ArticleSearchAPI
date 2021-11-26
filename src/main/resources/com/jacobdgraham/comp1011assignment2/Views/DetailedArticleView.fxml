@@ -41,6 +41,11 @@
                         <Button fx:id="btnBackToArticleSearch" mnemonicParsing="false" onAction="#backToArticleSearch" text="Go back to article search screen" />
                      </children>
                   </HBox>
+                  <Label fx:id="lblImageViewSuccess">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
                </children>
             </FlowPane>
          </top>
@@ -134,7 +139,7 @@
             </FlowPane>
          </right>
          <center>
-            <VBox fx:id="vboxForArticleImage" maxWidth="542.0" prefHeight="551.0" prefWidth="542.0" styleClass="vboxContainerForImageView" BorderPane.alignment="CENTER">
+            <VBox fx:id="vboxForArticleImage" alignment="CENTER" maxWidth="542.0" prefHeight="551.0" prefWidth="542.0" styleClass="vboxContainerForImageView" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fx:id="imgViewArticlePicture" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                </children>

@@ -25,31 +25,38 @@ public class Article implements Comparable<Article> {
     @SerializedName("multimedia")
     private ArticleImage[] multimedia;
 
-    /*@SerializedName("web_url")
-    private String articleImage;
-
-    public String getArticleImage() {
-        return articleImage;
+    public Article(String title, String url, String titleSnippet, String leadParagraph, String source, ArticleImage[] images) {
+        setArticleTitle(title);
+        setUrl(url);
+        setArticleTitleSnippet(titleSnippet);
+        setArticleLeadParagraph(leadParagraph);
+        setArticleSource(source);
+        setMultimedia(images);
     }
-
-    public void setArticleImage(String articleImageUrl) {
-        this.articleImage = articleImageUrl;
-    }*/
 
     public ArticleImage[] getMultimedia() {
         return multimedia;
     }
 
     public void setMultimedia(ArticleImage[] multimedia) {
-        this.multimedia = multimedia;
+        if (multimedia != null) {
+            this.multimedia = multimedia;
+        } else {
+            throw new IllegalArgumentException("Multimedia (article images) must not be null");
+        }
     }
 
     public String getArticleTitle() {
         return articleTitle;
     }
 
+    //return txtKeywords.getText().trim().replaceAll(" ", "%20").matches("[a-zA-Z0-9%]{2,50}");
     public void setArticleTitle(String articleTitle) {
-        this.articleTitle = articleTitle;
+        if (articleTitle.trim().replaceAll(" ","%20").matches("[a-zA-Z0-9%]{2,50}")) {
+            this.articleTitle = articleTitle;
+        } else {
+            throw new IllegalArgumentException("The input string must be between 2 and 50 characters, and contain only letters, numbers, and spaces");
+        }
     }
 
     public String getUrl() {
@@ -57,7 +64,11 @@ public class Article implements Comparable<Article> {
     }
 
     public void setUrl(String url) {
-        this.articleUrl = url;
+        if (url.trim().replaceAll(" ", "%20").matches("[a-zA-Z0-9%-_]{2,50}")) {
+            this.articleUrl = url;
+        } else {
+            throw new IllegalArgumentException("The input string must be between 2 and 50 characters and contain only letters, numbers, and spaces");
+        }
     }
 
     public String getArticleTitleSnippet() {
@@ -65,7 +76,12 @@ public class Article implements Comparable<Article> {
     }
 
     public void setArticleTitleSnippet(String articleTitleSnippet) {
-        this.articleTitleSnippet = articleTitleSnippet;
+        if (articleTitleSnippet.trim().matches("[a-zA-Z0-9!@#$%^&*() ]{2,50}")) {
+            this.articleTitleSnippet = articleTitleSnippet;
+        } else {
+            throw new IllegalArgumentException("The input string must be between 2 and 50 characters, " +
+                    "and contain only letters, numbers, spaces, and these characters: ! @ # $ % ^ & * ( )");
+        }
     }
 
     public String getArticleLeadParagraph() {
@@ -73,7 +89,12 @@ public class Article implements Comparable<Article> {
     }
 
     public void setArticleLeadParagraph(String articleLeadParagraph) {
-        this.articleLeadParagraph = articleLeadParagraph;
+        if (articleLeadParagraph.trim().matches("[a-zA-Z0-9!@#$%^&*() ]{2,50}")) {
+            this.articleLeadParagraph = articleLeadParagraph;
+        } else {
+            throw new IllegalArgumentException("The input string must be between 2 and 50 characters, " +
+                    "and contain only letters, numbers, spaces, and these characters: ! @ # $ % ^ & * ( )");
+        }
     }
 
     public String getArticleSource() {
@@ -81,7 +102,12 @@ public class Article implements Comparable<Article> {
     }
 
     public void setArticleSource(String articleSource) {
-        this.articleSource = articleSource;
+        if (articleSource.trim().matches("[a-zA-Z0-9!@#$%^&*() ]{2,50}")) {
+            this.articleSource = articleSource;
+        } else {
+            throw new IllegalArgumentException("The input string must be between 2 and 50 characters, " +
+                    "and contain only letters, numbers, spaces, and these characters: ! @ # $ % ^ & * ( )");
+        }
     }
 
     public String toString() {

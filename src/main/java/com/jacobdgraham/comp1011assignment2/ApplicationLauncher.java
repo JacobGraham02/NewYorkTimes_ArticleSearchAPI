@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -19,6 +20,7 @@ public class ApplicationLauncher extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(ApplicationLauncher.class.getResource("Views/ArticleView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("images/icon.png")));
         ArticleViewController controller = fxmlLoader.getController();
         controller.setHostServices(getHostServices());
         stage.setTitle("Hello!");

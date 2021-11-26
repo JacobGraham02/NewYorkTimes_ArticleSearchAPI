@@ -50,6 +50,9 @@ public class DetailedArticleViewController implements Initializable {
     @FXML
     private VBox vboxForArticleImage;
 
+    @FXML
+    private Label lblImageViewSuccess;
+
     private final String newYorkTimesImagePrepend = "https://www.nytimes.com/";
 
     private HostServices hostServices;
@@ -106,6 +109,8 @@ public class DetailedArticleViewController implements Initializable {
             vboxForArticleImage.setMaxWidth(imageWidth);
             vboxForArticleImage.setMaxHeight(imageHeight);
             imgViewArticlePicture.setImage(new Image(articleImageUrl));
+        } else {
+            lblImageViewSuccess.setText("There was no image associated with this fetched article");
         }
     }
 }

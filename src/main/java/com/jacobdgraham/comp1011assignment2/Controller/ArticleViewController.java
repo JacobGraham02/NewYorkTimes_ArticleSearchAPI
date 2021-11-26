@@ -71,7 +71,7 @@ public class ArticleViewController implements Initializable {
     }
 
     private boolean validateTextFieldData() {
-        return txtKeywords.getText().trim().replaceAll(" ", "%20").matches("[a-zA-Z\\s{0,}]{2,50}");
+        return txtKeywords.getText().trim().replaceAll(" ", "%20").matches("[a-zA-Z0-9%]{2,50}");
     }
 
     private Alert generateMessage(final String headerText, final String contentText, final Alert.AlertType alertType) {
@@ -102,6 +102,7 @@ public class ArticleViewController implements Initializable {
             }
             treeSetNewYorkTimesArticles.addAll(Arrays.asList(getArticlesFromJson().getDocs()));
             tblViewArticleTitles.getItems().addAll(treeSetNewYorkTimesArticles);
+            tblViewArticleTitles.getSelectionModel().clearSelection();
         });
 
         final Timeline timeline = new Timeline(keyFrameFetchArticleInfo);
@@ -116,6 +117,7 @@ public class ArticleViewController implements Initializable {
         stringArrayArticleSearchCredentials = getCredentialsFromJsonInArray();
 
         tblViewColumnArticleTitle.setCellValueFactory(new PropertyValueFactory<>("articleTitle"));
+
 
         tblViewArticleTitles.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
 

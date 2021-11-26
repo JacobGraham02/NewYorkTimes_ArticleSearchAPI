@@ -56,7 +56,7 @@
                         </Button>
                      </children>
                   </HBox>
-                  <Label fx:id="lblDoubleClickArticle" text="Click on any of the article names and press the Enter key to view article details on separate page" textFill="WHITE">
+                  <Label fx:id="lblDoubleClickArticle" text="Click on any of the article names and press the Enter key to view article details on separate page">
                      <FlowPane.margin>
                         <Insets />
                      </FlowPane.margin>
@@ -67,7 +67,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label text="Press tab until there is a blue outline around a table row. Next, use the up and down arrows to traverse to one, then press the Enter key" textFill="WHITE">
+                  <Label text="Press tab until there is a blue outline around a table row. Next, use the up and down arrows to traverse to one, then press the Enter key">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -80,7 +80,7 @@
             </FlowPane>
          </top>
          <center>
-            <TableView fx:id="tblViewArticleTitles" fixedCellSize="-2.0" maxHeight="600.0" prefHeight="385.0" prefWidth="900.0" styleClass="tableViewArticles" BorderPane.alignment="CENTER">
+            <TableView fx:id="tblViewArticleTitles" fixedCellSize="-2.0" maxHeight="600.0" prefHeight="385.0" prefWidth="900.0" styleClass="tableViewArticleResults" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn fx:id="tblViewColumnArticleTitle" editable="false" minWidth="50.0" prefWidth="1100.0" resizable="false" styleClass="columnArticleName" text="Article name" />
               </columns>

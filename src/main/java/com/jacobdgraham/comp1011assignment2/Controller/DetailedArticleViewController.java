@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -47,7 +48,7 @@ public class DetailedArticleViewController implements Initializable {
     private Label lblArticleLeadParagraph;
 
     @FXML
-    private Label lblArticleSource;
+    private VBox vboxForArticleImage;
 
     private final String newYorkTimesImagePrepend = "https://www.nytimes.com/";
 
@@ -75,8 +76,8 @@ public class DetailedArticleViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        final KeyFrame kf1 = new KeyFrame(Duration.millis(240), e -> populateImageView());
-        final KeyFrame kf2 = new KeyFrame(Duration.millis(250), e ->
+        final KeyFrame kf1 = new KeyFrame(Duration.millis(50), e -> populateImageView());
+        final KeyFrame kf2 = new KeyFrame(Duration.millis(50), e ->
         {
             lblArticleTitle.setText(articleFromPreviousPage.getArticleTitle());
             lblArticleHeadingSnippet.setText(articleFromPreviousPage.getArticleTitleSnippet());
@@ -87,20 +88,24 @@ public class DetailedArticleViewController implements Initializable {
             });
         });
 
+
+
         linkArticleOnline.setTooltip(new Tooltip("Go to this article's webpage"));
 
         final Timeline timeline = new Timeline(kf1, kf2);
         Platform.runLater(timeline::play);
     }
     private void populateImageView() {
-        final ArticleImage imageLocation = articleFromPreviousPage.getMultimedia()[0];
-        final String articleImageUrl = newYorkTimesImagePrepend+imageLocation.getArticleImageUrl();
-
-        double imageWidth = articleFromPreviousPage.getMultimedia()[0].getWidth();
-        double imageHeight = articleFromPreviousPage.getMultimedia()[0].getHeight();
-
-        imgViewArticlePicture.setFitWidth(imageWidth);
-        imgViewArticlePicture.setFitHeight(imageHeight);
-        imgViewArticlePicture.setImage(new Image(articleImageUrl));
+        if (articleFromPreviousPage.getMultimedia().length >= 1) {
+            final ArticleImage imageLocation = articleFromPreviousPage.getMultimedia()[0];
+            final String articleImageUrl = newYorkTimesImagePrepend+imageLocation.getArticleImageUrl();
+            double imageWidth = articleFromPreviousPage.getMultimedia()[0].getWidth();
+            double imageHeight = articleFromPreviousPage.getMultimedia()[0].getHeight();
+            imgViewArticlePicture.setFitWidth(imageWidth);
+            imgViewArticlePicture.setFitHeight(imageHeight);
+            vboxForArticleImage.setMaxWidth(imageWidth);
+            vboxForArticleImage.setMaxHeight(imageHeight);
+            imgViewArticlePicture.setImage(new Image(articleImageUrl));
+        }
     }
 }

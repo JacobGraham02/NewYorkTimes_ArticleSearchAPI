@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1100.0" stylesheets="@../Styles/ArticleView.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jacobdgraham.comp1011assignment2.Controller.DetailedArticleViewController">
+<AnchorPane prefHeight="800.0" prefWidth="1100.0" stylesheets="@../Styles/DetailedArticleView.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jacobdgraham.comp1011assignment2.Controller.DetailedArticleViewController">
    <children>
       <BorderPane layoutX="418.0" layoutY="133.0" prefHeight="800.0" prefWidth="1100.0" styleClass="applicationBackground" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -20,7 +20,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="70.0" prefWidth="500.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="51.0" prefWidth="596.0" styleClass="headingLabel" text="New York Times article" textFill="WHITE">
+                        <Label alignment="CENTER" prefHeight="51.0" prefWidth="596.0" styleClass="headingLabel" text="New York Times article">
                            <font>
                               <Font name="System Bold" size="36.0" />
                            </font>
@@ -45,16 +45,19 @@
             </FlowPane>
          </top>
          <right>
-            <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" maxWidth="492.0" orientation="VERTICAL" prefHeight="561.0" prefWidth="492.0" rowValignment="TOP" BorderPane.alignment="CENTER">
+            <FlowPane fx:id="flowPaneArticleInformatio" alignment="TOP_CENTER" columnHalignment="CENTER" maxWidth="492.0" orientation="VERTICAL" prefHeight="561.0" prefWidth="492.0" rowValignment="TOP" styleClass="flowPaneArticleInformation" BorderPane.alignment="CENTER">
                <children>
-                  <Label contentDisplay="CENTER" text="Title of article" textFill="WHITE">
+                  <Label contentDisplay="CENTER" styleClass="labelArticleInfo" text="Title of article">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
+                     <FlowPane.margin>
+                        <Insets top="10.0" />
+                     </FlowPane.margin>
                   </Label>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="395.0">
                      <children>
-                        <Label fx:id="lblArticleTitle" contentDisplay="CENTER" prefHeight="200.0" prefWidth="552.0" styleClass="lblArticleInformation" text="Label" textFill="WHITE" wrapText="true">
+                        <Label fx:id="lblArticleTitle" contentDisplay="CENTER" prefHeight="100.0" prefWidth="468.0" styleClass="lblArticleInformation" text="Label" wrapText="true">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -64,14 +67,17 @@
                         </Label>
                      </children>
                   </HBox>
-                  <Label contentDisplay="CENTER" text="Link to article online (Click it!)" textFill="WHITE">
+                  <Label contentDisplay="CENTER" styleClass="labelArticleInfo" text="Link to article online (Click it!)">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
+                     <FlowPane.margin>
+                        <Insets top="10.0" />
+                     </FlowPane.margin>
                   </Label>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Hyperlink fx:id="linkArticleOnline" prefHeight="153.0" prefWidth="526.0" text="Hyperlink" textFill="#fcfcfc">
+                        <Hyperlink fx:id="linkArticleOnline" prefHeight="100.0" prefWidth="506.0" styleClass="lblArticleInformation" text="Hyperlink">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -81,14 +87,17 @@
                         </Hyperlink>
                      </children>
                   </HBox>
-                  <Label contentDisplay="CENTER" text="Heading of article" textFill="WHITE">
+                  <Label contentDisplay="CENTER" styleClass="labelArticleInfo" text="Heading of article">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
+                     <FlowPane.margin>
+                        <Insets top="10.0" />
+                     </FlowPane.margin>
                   </Label>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="lblArticleHeadingSnippet" prefHeight="201.0" prefWidth="685.0" styleClass="lblArticleInformation" text="Label" textFill="WHITE" wrapText="true">
+                        <Label fx:id="lblArticleHeadingSnippet" prefHeight="100.0" prefWidth="759.0" styleClass="lblArticleInformation" text="Label" wrapText="true">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -98,14 +107,17 @@
                         </Label>
                      </children>
                   </HBox>
-                  <Label contentDisplay="CENTER" text="Lead paragraph of article" textFill="WHITE">
+                  <Label contentDisplay="CENTER" styleClass="labelArticleInfo" text="Lead paragraph of article">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
+                     <FlowPane.margin>
+                        <Insets top="10.0" />
+                     </FlowPane.margin>
                   </Label>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="lblArticleLeadParagraph" prefHeight="171.0" prefWidth="564.0" styleClass="lblArticleInformation" text="Label" textFill="WHITE" wrapText="true">
+                        <Label fx:id="lblArticleLeadParagraph" prefHeight="171.0" prefWidth="564.0" styleClass="lblArticleInformation" text="Label" wrapText="true">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -116,10 +128,13 @@
                      </children>
                   </HBox>
                </children>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" right="10.0" />
+               </BorderPane.margin>
             </FlowPane>
          </right>
          <center>
-            <VBox maxWidth="500.0" prefHeight="551.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="vboxForArticleImage" maxWidth="542.0" prefHeight="551.0" prefWidth="542.0" styleClass="vboxContainerForImageView" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fx:id="imgViewArticlePicture" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                </children>

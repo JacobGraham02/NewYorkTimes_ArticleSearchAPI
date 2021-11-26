@@ -23,7 +23,7 @@ public class ApplicationLauncher extends Application {
         stage.getIcons().add(new Image(getClass().getResourceAsStream("images/icon.png")));
         ArticleViewController controller = fxmlLoader.getController();
         controller.setHostServices(getHostServices());
-        stage.setTitle("Hello!");
+        stage.setTitle("New York Times article search");
         stage.setScene(scene);
         stage.show();
     }

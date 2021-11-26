@@ -40,6 +40,9 @@ public class ArticleViewController implements Initializable {
     private Label lblSubHeading;
 
     @FXML
+    private Label lblInformationAboutArticlesFetched;
+
+    @FXML
     private TextField txtKeywords;
 
     @FXML
@@ -50,6 +53,7 @@ public class ArticleViewController implements Initializable {
 
     @FXML
     private TableView<Article> tblViewArticleTitles;
+
 
     @FXML
     private TableColumn<Article, String> tblViewColumnArticleTitle;
@@ -67,7 +71,7 @@ public class ArticleViewController implements Initializable {
 
     @FXML
     void btnTableRowClicked(ActionEvent event) throws IOException {
-        changeScene(event, "Views/DetailedArticleView.fxml", "Test.fxml", currentlySelectedArticle, hostServices);
+        changeScene(event, "Views/DetailedArticleView.fxml", currentlySelectedArticle.getArticleTitle(), currentlySelectedArticle, hostServices);
     }
 
     private boolean validateTextFieldData() {
@@ -100,8 +104,16 @@ public class ArticleViewController implements Initializable {
             } catch (IOException | InterruptedException ex) {
                 ex.printStackTrace();
             }
-            treeSetNewYorkTimesArticles.addAll(Arrays.asList(getArticlesFromJson().getDocs()));
-            tblViewArticleTitles.getItems().addAll(treeSetNewYorkTimesArticles);
+            try {
+                treeSetNewYorkTimesArticles.addAll(Arrays.asList(getArticlesFromJson().getDocs()));
+                tblViewArticleTitles.getItems().addAll(treeSetNewYorkTimesArticles);
+                lblInformationAboutArticlesFetched.setText("You fetched: " + treeSetNewYorkTimesArticles.size() + " articles");
+
+            } catch (StringIndexOutOfBoundsException stringIndexOutOfBoundsException) {
+                lblInformationAboutArticlesFetched.setText("There were 0 articles found with this keyword");
+            }
+
+
             tblViewArticleTitles.getSelectionModel().clearSelection();
         });
 

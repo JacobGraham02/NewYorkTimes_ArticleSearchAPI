@@ -4,14 +4,13 @@ import com.jacobdgraham.comp1011assignment2.Model.Article;
 import com.jacobdgraham.comp1011assignment2.Model.ArticleImage;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -50,7 +49,17 @@ public class DetailedArticleViewController implements Initializable {
     @FXML
     private Label lblArticleSource;
 
-    final String newYorkTimesImagePrepend = "https://www.nytimes.com/";
+    private final String newYorkTimesImagePrepend = "https://www.nytimes.com/";
+
+    private HostServices hostServices;
+
+    public HostServices getHostServices() {
+        return hostServices;
+    }
+
+    public void setHostServices(HostServices hostServicesParam) {
+        this.hostServices = hostServicesParam;
+    }
 
     @FXML
     void backToArticleSearch(final ActionEvent event) throws IOException {
@@ -73,7 +82,12 @@ public class DetailedArticleViewController implements Initializable {
             lblArticleHeadingSnippet.setText(articleFromPreviousPage.getArticleTitleSnippet());
             lblArticleLeadParagraph.setText(articleFromPreviousPage.getArticleLeadParagraph());
             linkArticleOnline.setText(articleFromPreviousPage.getUrl());
+            linkArticleOnline.setOnAction((ActionEvent event) -> {
+                hostServices.showDocument(articleFromPreviousPage.getUrl());
+            });
         });
+
+        linkArticleOnline.setTooltip(new Tooltip("Go to this article's webpage"));
 
         final Timeline timeline = new Timeline(kf1, kf2);
         Platform.runLater(timeline::play);

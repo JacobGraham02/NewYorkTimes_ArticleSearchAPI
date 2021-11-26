@@ -2,6 +2,7 @@ package com.jacobdgraham.comp1011assignment2;
 
 import com.jacobdgraham.comp1011assignment2.Controller.DetailedArticleViewController;
 import com.jacobdgraham.comp1011assignment2.Model.Article;
+import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,7 +29,7 @@ public class SceneChanger {
         stage.show();
     }
 
-    public static void changeScene(ActionEvent actionEvent, String newFxmlViewName, String sceneTitle, Article articleFromNyt) throws IOException {
+    public static void changeScene(ActionEvent actionEvent, String newFxmlViewName, String sceneTitle, Article articleFromNyt, HostServices hostService) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(new Object() {
 
@@ -39,6 +40,7 @@ public class SceneChanger {
 
         DetailedArticleViewController detailedArticleViewController = fxmlLoader.getController();
         detailedArticleViewController.initializeArticleData(articleFromNyt);
+        detailedArticleViewController.setHostServices(hostService);
 
         stage.setTitle(sceneTitle);
         stage.setScene(scene);

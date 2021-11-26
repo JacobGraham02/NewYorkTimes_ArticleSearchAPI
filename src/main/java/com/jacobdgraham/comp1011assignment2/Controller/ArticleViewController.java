@@ -2,6 +2,9 @@ package com.jacobdgraham.comp1011assignment2.Controller;
 
 import com.jacobdgraham.comp1011assignment2.Model.Article;
 import com.jacobdgraham.comp1011assignment2.SceneChanger;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -12,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -52,10 +56,18 @@ public class ArticleViewController implements Initializable {
 
     private String txtfieldData;
 
+    private HostServices hostServices;
+
+    public HostServices getHostServices() {
+        return hostServices;
+    }
+    public void setHostServices(HostServices hostServicesParam) {
+        this.hostServices = hostServicesParam;
+    }
 
     @FXML
     void btnTableRowClicked(ActionEvent event) throws IOException {
-        changeScene(event, "Views/DetailedArticleView.fxml", "Test.fxml", currentlySelectedArticle);
+        changeScene(event, "Views/DetailedArticleView.fxml", "Test.fxml", currentlySelectedArticle, hostServices);
     }
 
     private boolean validateTextFieldData() {
@@ -81,15 +93,19 @@ public class ArticleViewController implements Initializable {
 
         txtfieldData = txtKeywords.getText().trim();
 
-        new Thread(() -> {
+        final KeyFrame keyFrameFetchArticleInfo = new KeyFrame(Duration.millis(250), e ->
+        {
             try {
                 fetchApiResultsInJsonFile(fetchAPIConnectionWithSpecificKeyword(txtfieldData));
-                treeSetNewYorkTimesArticles.addAll(Arrays.asList(getArticlesFromJson().getDocs()));
-                tblViewArticleTitles.getItems().addAll(treeSetNewYorkTimesArticles);
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
+            } catch (IOException | InterruptedException ex) {
+                ex.printStackTrace();
             }
-        }).start();
+            treeSetNewYorkTimesArticles.addAll(Arrays.asList(getArticlesFromJson().getDocs()));
+            tblViewArticleTitles.getItems().addAll(treeSetNewYorkTimesArticles);
+        });
+
+        final Timeline timeline = new Timeline(keyFrameFetchArticleInfo);
+        Platform.runLater(timeline::play);
         txtKeywords.clear();
     }
 

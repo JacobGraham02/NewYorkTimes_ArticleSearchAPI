@@ -1,5 +1,7 @@
 package com.jacobdgraham.comp1011assignment2;
 
+import com.jacobdgraham.comp1011assignment2.Controller.ArticleViewController;
+import com.jacobdgraham.comp1011assignment2.Controller.DetailedArticleViewController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -17,6 +19,8 @@ public class ApplicationLauncher extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(ApplicationLauncher.class.getResource("Views/ArticleView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+        ArticleViewController controller = fxmlLoader.getController();
+        controller.setHostServices(getHostServices());
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();

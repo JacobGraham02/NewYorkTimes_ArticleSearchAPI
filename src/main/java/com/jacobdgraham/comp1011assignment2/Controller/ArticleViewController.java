@@ -62,9 +62,6 @@ public class ArticleViewController implements Initializable {
 
     private HostServices hostServices;
 
-    public HostServices getHostServices() {
-        return hostServices;
-    }
     public void setHostServices(HostServices hostServicesParam) {
         this.hostServices = hostServicesParam;
     }
@@ -79,10 +76,10 @@ public class ArticleViewController implements Initializable {
     }
 
     private Alert generateMessage(final String headerText, final String contentText, final Alert.AlertType alertType) {
-        Alert errorAlert = new Alert(alertType);
-        errorAlert.setHeaderText(headerText);
-        errorAlert.setContentText(contentText);
-        return errorAlert;
+        Alert alert = new Alert(alertType);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        return alert;
     }
 
     @FXML
@@ -91,9 +88,11 @@ public class ArticleViewController implements Initializable {
             generateMessage("Input error", "Please enter some text between 2 and 50 characters long", Alert.AlertType.ERROR).showAndWait();
             return;
         }
+        lblInformationAboutArticlesFetched.setText("Fetching articles...");
 
         tblViewArticleTitles.getItems().clear();
         treeSetNewYorkTimesArticles.clear();
+        txtKeywords.clear();
 
         txtfieldData = txtKeywords.getText().trim();
 
@@ -107,19 +106,15 @@ public class ArticleViewController implements Initializable {
             try {
                 treeSetNewYorkTimesArticles.addAll(Arrays.asList(getArticlesFromJson().getDocs()));
                 tblViewArticleTitles.getItems().addAll(treeSetNewYorkTimesArticles);
-                lblInformationAboutArticlesFetched.setText("You fetched: " + treeSetNewYorkTimesArticles.size() + " articles");
-
+                lblInformationAboutArticlesFetched.setText("You have fetched " + treeSetNewYorkTimesArticles.size() + " articles from the New York Times website");
             } catch (StringIndexOutOfBoundsException stringIndexOutOfBoundsException) {
-                lblInformationAboutArticlesFetched.setText("There were 0 articles found with this keyword");
+                lblInformationAboutArticlesFetched.setText("There were no fetched articles on the New York Times website containing the specified keywords");
             }
-
-
             tblViewArticleTitles.getSelectionModel().clearSelection();
         });
 
         final Timeline timeline = new Timeline(keyFrameFetchArticleInfo);
         Platform.runLater(timeline::play);
-        txtKeywords.clear();
     }
 
     @Override

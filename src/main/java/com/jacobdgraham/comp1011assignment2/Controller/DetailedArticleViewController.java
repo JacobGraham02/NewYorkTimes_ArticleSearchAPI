@@ -57,10 +57,6 @@ public class DetailedArticleViewController implements Initializable {
 
     private HostServices hostServices;
 
-    public HostServices getHostServices() {
-        return hostServices;
-    }
-
     public void setHostServices(HostServices hostServicesParam) {
         this.hostServices = hostServicesParam;
     }
@@ -98,6 +94,15 @@ public class DetailedArticleViewController implements Initializable {
         final Timeline timeline = new Timeline(kf1, kf2);
         Platform.runLater(timeline::play);
     }
+
+    /**
+     * If the array of images returned for a specific article has no image(s) contained within, set a label to inform the user
+     * Else perform the following:
+     *  Fetch the relative url of the article image from the new york times api
+     *  Prepend the relative url to make an absolute url to the article stored in the new york times
+     *  Set the actual height of the imageview and container vertical box to the height and width of the article image
+     *  Finally, set the image view image inside the fxml file to the retrieved image.
+     */
     private void populateImageView() {
         if (articleFromPreviousPage.getMultimedia().length >= 1) {
             final ArticleImage imageLocation = articleFromPreviousPage.getMultimedia()[0];

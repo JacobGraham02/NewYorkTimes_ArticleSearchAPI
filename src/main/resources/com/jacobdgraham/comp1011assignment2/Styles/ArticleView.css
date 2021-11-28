@@ -14,7 +14,7 @@
     -fx-font-weight: bold;
 }
 .table-row-cell:even {
-    -fx-background-color: whitesmoke;
+    -fx-background-color: lightgray;
     -fx-font-weight: bold;
 }
 .table-row-cell:hover {
@@ -22,4 +22,7 @@
 }
 .table-row-cell:focused {
     -fx-background-color: black;
+}
+.lblArticleFetchInformation {
+    -fx-font-weight: bold;
 }

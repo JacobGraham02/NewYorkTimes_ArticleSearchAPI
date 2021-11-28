@@ -72,11 +72,6 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblInformationAboutArticlesFetched" maxWidth="300.0" prefHeight="161.0" prefWidth="300.0" textFill="RED" wrapText="true">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Label>
                   <Button fx:id="btnClickedTableRow" alignment="TOP_RIGHT" disable="true" mnemonicParsing="false" onAction="#btnTableRowClicked" opacity="0.0" text="Auto clicks" />
                </children>
                <BorderPane.margin>
@@ -85,12 +80,19 @@
             </FlowPane>
          </top>
          <center>
-            <TableView fx:id="tblViewArticleTitles" fixedCellSize="-2.0" maxHeight="600.0" prefHeight="415.0" prefWidth="1100.0" styleClass="tableViewArticleResults" BorderPane.alignment="CENTER">
+            <TableView fx:id="tblViewArticleTitles" fixedCellSize="-2.0" maxHeight="565.0" prefHeight="565.0" prefWidth="1100.0" styleClass="tableViewArticleResults" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn fx:id="tblViewColumnArticleTitle" editable="false" minWidth="50.0" prefWidth="1100.0" resizable="false" styleClass="columnArticleName" text="Article name" />
               </columns>
             </TableView>
          </center>
+         <bottom>
+            <Label fx:id="lblInformationAboutArticlesFetched" alignment="CENTER" contentDisplay="CENTER" maxWidth="1102.0" prefHeight="54.0" prefWidth="1100.0" styleClass="lblArticleFetchInformation" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </bottom>
       </BorderPane>
    </children>
 </AnchorPane>

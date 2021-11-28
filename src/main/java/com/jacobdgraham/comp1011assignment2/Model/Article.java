@@ -34,10 +34,19 @@ public class Article implements Comparable<Article> {
         setMultimedia(images);
     }
 
+    /**
+     * Returns the media (images) inside the article
+     * @return array of images associated with an article(s)
+     */
     public ArticleImage[] getMultimedia() {
         return multimedia;
     }
 
+    /**
+     * The array of images must not be null when assigning to a variable
+     * @param multimedia an array of images associated with an article(s)
+     * @throws IllegalArgumentException if the input array for article images is null
+     */
     public void setMultimedia(ArticleImage[] multimedia) {
         if (multimedia != null) {
             this.multimedia = multimedia;
@@ -46,11 +55,19 @@ public class Article implements Comparable<Article> {
         }
     }
 
+    /**
+     *
+     * @return String of the Article's title in a web browser
+     */
     public String getArticleTitle() {
         return articleTitle;
     }
 
-    //return txtKeywords.getText().trim().replaceAll(" ", "%20").matches("[a-zA-Z0-9%]{2,50}");
+    /**
+     * Uses Regex to set the article title
+     * @param articleTitle a String
+     * @throws IllegalArgumentException if the article title input string is not valid regex: [a-zA-Z0-9%]{2,50}
+     */
     public void setArticleTitle(String articleTitle) {
         if (articleTitle.trim().replaceAll(" ","%20").matches("[a-zA-Z0-9%]{2,50}")) {
             this.articleTitle = articleTitle;
@@ -59,10 +76,19 @@ public class Article implements Comparable<Article> {
         }
     }
 
+    /**
+     *
+     * @return the URL used in a web browser to traverse to the article
+     */
     public String getUrl() {
         return articleUrl;
     }
 
+    /**
+     *
+     * @param url a String modified using .trim().replaceAll(" ", "%20")
+     * @throws IllegalArgumentException if the input string is not valid regex: [a-zA-Z0-9%-_]{2,50}
+     */
     public void setUrl(String url) {
         if (url.trim().replaceAll(" ", "%20").matches("[a-zA-Z0-9%-_]{2,50}")) {
             this.articleUrl = url;
@@ -75,6 +101,11 @@ public class Article implements Comparable<Article> {
         return articleTitleSnippet;
     }
 
+    /**
+     *
+     * @param articleTitleSnippet a String modified using .trim() .replaceAll(" ", "%20")
+     * @throws IllegalArgumentException if the input string is not valid regex: [a-zA-Z0-9!@#$%^&*()]{2,50}
+     */
     public void setArticleTitleSnippet(String articleTitleSnippet) {
         if (articleTitleSnippet.trim().matches("[a-zA-Z0-9!@#$%^&*() ]{2,50}")) {
             this.articleTitleSnippet = articleTitleSnippet;
@@ -84,10 +115,19 @@ public class Article implements Comparable<Article> {
         }
     }
 
+    /**
+     *
+     * @return String of the currently referenced Article's first occuring paragraph
+     */
     public String getArticleLeadParagraph() {
         return articleLeadParagraph;
     }
 
+    /**
+     *
+     * @param articleLeadParagraph a String modified using .trim()
+     * @throws IllegalArgumentException if input string is not valid regex: [a-zA-Z0-9!@#$%^&*()]{2,50}
+     */
     public void setArticleLeadParagraph(String articleLeadParagraph) {
         if (articleLeadParagraph.trim().matches("[a-zA-Z0-9!@#$%^&*() ]{2,50}")) {
             this.articleLeadParagraph = articleLeadParagraph;
@@ -101,6 +141,11 @@ public class Article implements Comparable<Article> {
         return articleSource;
     }
 
+    /**
+     *
+     * @param articleSource a String modified using .trim()
+     * @throws IllegalArgumentException if input string is not valid regex [a-zA-Z0-9!@#$%^&*()]{2,50}
+     */
     public void setArticleSource(String articleSource) {
         if (articleSource.trim().matches("[a-zA-Z0-9!@#$%^&*() ]{2,50}")) {
             this.articleSource = articleSource;
@@ -110,10 +155,23 @@ public class Article implements Comparable<Article> {
         }
     }
 
+    /**
+     *
+     * @return a String which displays the following information in the following format:
+     * Article title: %s
+     * Url: %s
+     * Lead paragraph: %s
+     * %s (article image url without http or https protocol)
+     */
     public String toString() {
         return String.format("Article title: %s, \n Url: %s \n Lead paragraph: %s\n %s \n", articleTitle, articleUrl, articleLeadParagraph, multimedia[0]);
     }
 
+    /**
+     *
+     * @param o an Article to compare with the one referenced by the current class
+     * @return an integer value based on the Java's TreeMap native implementation to order Nodes.
+     */
     @Override
     public int compareTo(Article o) {
         // Compare values with ASCII table. In this example, if o.charAt(0) is R, and this.charAt(0) is B, 16 will be returned; B is 16 chars from R

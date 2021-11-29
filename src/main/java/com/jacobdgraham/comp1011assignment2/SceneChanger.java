@@ -4,7 +4,6 @@ import com.jacobdgraham.comp1011assignment2.Controller.DetailedArticleViewContro
 import com.jacobdgraham.comp1011assignment2.Model.Article;
 import javafx.application.HostServices;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;

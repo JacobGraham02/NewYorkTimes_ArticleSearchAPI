@@ -1,6 +1,5 @@
 package com.jacobdgraham.comp1011assignment2.Model;
 
-import com.google.gson.JsonArray;
 import com.google.gson.annotations.SerializedName;
 
 public class NewYorkTimesApiResponse {

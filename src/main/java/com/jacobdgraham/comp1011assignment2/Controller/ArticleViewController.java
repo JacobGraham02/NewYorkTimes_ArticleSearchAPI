@@ -1,21 +1,16 @@
 package com.jacobdgraham.comp1011assignment2.Controller;
 
 import com.jacobdgraham.comp1011assignment2.Model.Article;
-import com.jacobdgraham.comp1011assignment2.SceneChanger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.HostServices;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -23,8 +18,6 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.TreeSet;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import static com.jacobdgraham.comp1011assignment2.SceneChanger.changeScene;
 import static com.jacobdgraham.comp1011assignment2.Utilities.APIUtility.*;

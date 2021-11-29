@@ -1,9 +1,6 @@
 package com.jacobdgraham.comp1011assignment2.Model;
 
 import com.google.gson.annotations.SerializedName;
-import javafx.scene.image.Image;
-
-import java.util.Comparator;
 
 public class Article implements Comparable<Article> {
 

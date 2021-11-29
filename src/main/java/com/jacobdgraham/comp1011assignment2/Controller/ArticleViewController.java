@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
@@ -68,7 +69,7 @@ public class ArticleViewController implements Initializable {
 
     @FXML
     void btnTableRowClicked(ActionEvent event) throws IOException {
-        changeScene(event, "Views/DetailedArticleView.fxml", currentlySelectedArticle.getArticleTitle(), currentlySelectedArticle, hostServices);
+        changeScene(event, "Views/DetailedArticleView.fxml", "Detailed article information", currentlySelectedArticle, hostServices);
     }
 
     private boolean validateTextFieldData() {
@@ -89,12 +90,12 @@ public class ArticleViewController implements Initializable {
             return;
         }
         lblInformationAboutArticlesFetched.setText("Fetching articles...");
-
+        tblViewArticleTitles.setPlaceholder(new Label("Loading..."));
         tblViewArticleTitles.getItems().clear();
         treeSetNewYorkTimesArticles.clear();
-        txtKeywords.clear();
-
         txtfieldData = txtKeywords.getText().trim();
+
+        txtKeywords.clear();
 
         final KeyFrame keyFrameFetchArticleInfo = new KeyFrame(Duration.millis(250), e ->
         {
@@ -108,7 +109,8 @@ public class ArticleViewController implements Initializable {
                 tblViewArticleTitles.getItems().addAll(treeSetNewYorkTimesArticles);
                 lblInformationAboutArticlesFetched.setText("You have fetched " + treeSetNewYorkTimesArticles.size() + " articles from the New York Times website");
             } catch (StringIndexOutOfBoundsException stringIndexOutOfBoundsException) {
-                lblInformationAboutArticlesFetched.setText("There were no fetched articles on the New York Times website containing the specified keywords");
+                lblInformationAboutArticlesFetched.setText("There were no articles on the New York Times website containing your specified keywords");
+                tblViewArticleTitles.setPlaceholder(new Label("No articles found"));
             }
             tblViewArticleTitles.getSelectionModel().clearSelection();
         });
@@ -119,6 +121,7 @@ public class ArticleViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        tblViewArticleTitles.setPlaceholder(new Label("Articles from the New York Times will appear here"));
         String[] stringArrayArticleSearchCredentials = new String[2];
         treeSetNewYorkTimesArticles = new TreeSet<>();
         stringArrayArticleSearchCredentials = getCredentialsFromJsonInArray();

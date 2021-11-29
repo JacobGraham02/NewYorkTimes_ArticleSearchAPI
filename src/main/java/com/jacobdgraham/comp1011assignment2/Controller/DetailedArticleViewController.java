@@ -63,7 +63,7 @@ public class DetailedArticleViewController implements Initializable {
 
     @FXML
     void backToArticleSearch(final ActionEvent event) throws IOException {
-        changeScene(event, "Views/ArticleView.fxml", "Hello!");
+        changeScene(event, "Views/ArticleView.fxml", "New York Times article search");
     }
 
     private Article articleFromPreviousPage;
@@ -79,7 +79,6 @@ public class DetailedArticleViewController implements Initializable {
         final KeyFrame kf2 = new KeyFrame(Duration.millis(50), e ->
         {
             lblArticleTitle.setText(articleFromPreviousPage.getArticleTitle());
-            lblArticleHeadingSnippet.setText(articleFromPreviousPage.getArticleTitleSnippet());
             lblArticleLeadParagraph.setText(articleFromPreviousPage.getArticleLeadParagraph());
             linkArticleOnline.setText(articleFromPreviousPage.getUrl());
             linkArticleOnline.setOnAction((ActionEvent event) -> {
@@ -115,7 +114,7 @@ public class DetailedArticleViewController implements Initializable {
             vboxForArticleImage.setMaxHeight(imageHeight);
             imgViewArticlePicture.setImage(new Image(articleImageUrl));
         } else {
-            lblImageViewSuccess.setText("There was no image associated with this fetched article");
+            lblImageViewSuccess.setText("There was no image associated with this article");
         }
     }
 }

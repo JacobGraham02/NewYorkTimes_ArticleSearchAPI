@@ -1,4 +1,4 @@
-# Java application for using the New York Times 'Article Search' API.
+# Java application for using the New York Times 'Article Search' REST API.
 
-Using the above API, you can use keywords to search for various articles, thus keeping your search queries relevant to what information you are looking for.
-Built using Maven for a dependency manager, and Gson for json processing. 
+Using the the New York Times REST API, you can fetch a JSON response object which contains recently published articles via a supplied keyword in a query. In this Maven JavaFx application, a JSON response is fetched from the New York Times website using HttpComponents and stored in a file, and is then parsed using Google Gson library to populate a list with the parsed data. Then, you can display specific article information by selecting an article from that list.
+

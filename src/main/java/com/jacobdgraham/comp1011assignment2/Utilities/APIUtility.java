@@ -18,13 +18,13 @@ public class APIUtility {
     private static String api_key = "sLUaGVUJ77sKiYi5mOdTTnjc6W03nmpJ";
     private static String api_secret = "Oup2fCslkil7Vbj1";
     private static String jsonFileLocation = "articles_from_nyt_api.json";
-    private static String jsonCredentialsFileLocation = "apiKey_secretKey.json";
+/*    private static String jsonCredentialsFileLocation = "apiKey_secretKey.json";*/
 
     /**
      *
      * @return An array of size 2; location 0 containing api key, and location 1 containing api secret
      */
-    public static String[] getCredentialsFromJsonInArray() {
+    /*public static String[] getCredentialsFromJsonInArray() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Credentials result;
         String[] credentials = new String[2];
@@ -39,7 +39,7 @@ public class APIUtility {
         }
         return credentials;
     }
-
+*/
     /**
      *
      * @param jsonFileLocation the json file to delete all contents from.

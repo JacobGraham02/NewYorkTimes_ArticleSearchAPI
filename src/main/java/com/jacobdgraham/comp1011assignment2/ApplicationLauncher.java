@@ -14,7 +14,7 @@ public class ApplicationLauncher extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(ApplicationLauncher.class.getResource("Views/ArticleView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("images/icon.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/icon.png")));
         ArticleViewController controller = fxmlLoader.getController();
         controller.setHostServices(getHostServices());
         stage.setTitle("New York Times article search");

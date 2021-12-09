@@ -115,9 +115,9 @@ public class ArticleViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         tblViewArticleTitles.setPlaceholder(new Label("Articles from the New York Times will appear here"));
-        String[] stringArrayArticleSearchCredentials = new String[2];
+//        String[] stringArrayArticleSearchCredentials = new String[2];
         treeSetNewYorkTimesArticles = new TreeSet<>();
-        stringArrayArticleSearchCredentials = getCredentialsFromJsonInArray();
+//        stringArrayArticleSearchCredentials = getCredentialsFromJsonInArray();
 
         tblViewColumnArticleTitle.setCellValueFactory(new PropertyValueFactory<>("articleTitle"));
 
